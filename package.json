@@ -1,0 +1,17 @@
+{
+  "name": "simpleapp",
+  "version": "1.0.0",
+  "description": "Simple Users CRUD app — target repo for Autocode GenAI tests",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": ["crud", "users", "autocode"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "uuid": "^11.0.5"
+  }
+}

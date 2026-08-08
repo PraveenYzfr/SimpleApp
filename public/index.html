@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Users</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="header">
+        <h1>Manage Users</h1>
+        <p>Create, edit, and delete users.</p>
+      </header>
+
+      <section class="form-section" aria-labelledby="form-title">
+        <h2 id="form-title">Add User</h2>
+        <form id="user-form">
+          <input type="hidden" id="user-id" />
+          <label>
+            Name
+            <input type="text" id="name" name="name" required placeholder="Jane Doe" />
+          </label>
+          <label>
+            Email
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="jane@example.com"
+            />
+          </label>
+          <label>
+            Role
+            <select id="role" name="role">
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+              <option value="editor">Editor</option>
+            </select>
+          </label>
+          <div class="form-actions">
+            <button type="submit" id="submit-btn">Add User</button>
+            <button type="button" id="cancel-btn" class="secondary hidden">Cancel</button>
+          </div>
+        </form>
+        <p id="form-message" class="message" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="list-section" aria-labelledby="list-title">
+        <div class="list-header">
+          <h2 id="list-title">Users</h2>
+          <input
+            type="search"
+            id="search"
+            placeholder="Search by name or email…"
+            aria-label="Search users"
+          />
+        </div>
+        <div id="users-table-wrap">
+          <table id="users-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="users-body"></tbody>
+          </table>
+          <p id="empty-state" class="empty hidden">No users found.</p>
+        </div>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
