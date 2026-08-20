@@ -84,17 +84,46 @@ function requireCsrf() {
 export function createApp() {
   const app = new Hono();
 
-  app.use("*", async (c, next) => {
+  // Health is public and never requires secrets (helps diagnose misconfigured deploys).
+  app.get("/api/health", (c) => {
+    const missing = [];
+    if (!c.env.SESSION_SECRET) missing.push("SESSION_SECRET");
+    if (!c.env.AUTH_ADMIN_EMAIL) missing.push("AUTH_ADMIN_EMAIL");
+    if (!c.env.AUTH_ADMIN_PASSWORD) missing.push("AUTH_ADMIN_PASSWORD");
+    if (!c.env.DB) missing.push("DB");
+    if (missing.length) {
+      return c.json(
+        {
+          status: "misconfigured",
+          error: "Missing Worker secrets/bindings",
+          missing,
+          hint: "Set encrypted Secrets in the Worker (not Build vars). Use Type=Secret, then click Deploy. Or: npx wrangler secret put SESSION_SECRET",
+        },
+        503
+      );
+    }
+    return c.json({ status: "ok" });
+  });
+
+  app.use("/api/*", async (c, next) => {
+    if (c.req.path === "/api/health") {
+      await next();
+      return;
+    }
     if (!c.env.SESSION_SECRET) {
-      return c.json({ error: "SESSION_SECRET is not configured" }, 500);
+      return c.json(
+        {
+          error: "SESSION_SECRET is not configured",
+          hint: "Add SESSION_SECRET as a Secret (encrypted), then click Deploy on Variables and Secrets.",
+        },
+        500
+      );
     }
     await seedAdminIfNeeded(c.env);
     const session = await readSession(c.req.raw, c.env.SESSION_SECRET);
     c.set("session", session);
     await next();
   });
-
-  app.get("/api/health", (c) => c.json({ status: "ok" }));
 
   // ---- auth ----
   app.post("/api/auth/login", async (c) => {

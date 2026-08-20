@@ -3,6 +3,10 @@ main = "src/index.js"
 compatibility_date = "2025-08-01"
 compatibility_flags = ["nodejs_compat"]
 
+# Keep dashboard Text vars (SESSION_SECRET etc.) across Git deploys.
+# Secrets are never deleted by deploy; Text vars are wiped unless this is true.
+keep_vars = true
+
 # Static UI: landing + demo
 [assets]
 directory = "./public"

@@ -37,7 +37,7 @@ fallback.
 | Field | Value |
 |-------|--------|
 | Project name | `simpleapp` |
-| **Build / deploy command** | `npx wrangler deploy` |
+| **Build / deploy command** | `npx wrangler deploy --keep-vars` |
 | Install command | `npm ci` (or default `npm install`) |
 | Root directory | `/` (repo root) |
 
@@ -49,7 +49,7 @@ npx wrangler login
 npx wrangler d1 create simpleapp
 ```
 
-Copy the printed `database_id` into `wrangler.toml` under `[[d1_databases]]`.
+Copy the printed `database_id` into `wrangler.toml` (replace the local placeholder UUID).
 
 ```bash
 npm run cf:db:migrate
@@ -61,6 +61,8 @@ npm run cf:deploy
 ```
 
 Then attach custom domain `simpleapp.praveenyzfr.com` in the Cloudflare Workers UI.
+
+For **Workers Builds** (Git-connected): set deploy command to `npx wrangler deploy --keep-vars` (or `npm run cf:deploy`), install to `npm ci`. **`--keep-vars` is required** so dashboard Text variables are not wiped on every deploy. Prefer Type **Secret** for `SESSION_SECRET` and `AUTH_ADMIN_PASSWORD`, then click **Deploy** on the Variables page (saving alone is not enough). Optional: protect non-production branch previews with Cloudflare Access.
 
 ### Local Worker preview
 
