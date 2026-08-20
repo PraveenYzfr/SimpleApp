@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="AutoCoder lab landing page and authenticated Users CRUD demonstration."
+    />
+    <title>AutoCoder Lab</title>
+    <link rel="stylesheet" href="/landing/landing.css" />
+  </head>
+  <body>
+    <main class="landing">
+      <p class="eyebrow">AutoCoder Lab</p>
+      <h1>AI-assisted software change, with a human merge gate.</h1>
+      <p class="summary">
+        SimpleApp is the live test target for AutoCoder. Jira-driven changes are
+        implemented and tested in an isolated container, then opened as pull
+        requests for human review. Nothing deploys directly from an agent run.
+      </p>
+
+      <section class="cards" aria-label="Project summary">
+        <article>
+          <h2>Users demo</h2>
+          <p>
+            An authenticated Node.js and Express CRUD application with
+            viewer, editor, and administrator roles.
+          </p>
+          <a class="button" href="/demo/">Open authenticated demo</a>
+        </article>
+        <article>
+          <h2>Safe change flow</h2>
+          <ol>
+            <li>Ticket is assigned to AutoCoder.</li>
+            <li>Code changes run through build, tests, and secret scan.</li>
+            <li>A pull request is opened; a human decides whether to merge.</li>
+          </ol>
+        </article>
+      </section>
+
+      <footer>
+        <a href="https://github.com/PraveenYzfr/SimpleApp">View source on GitHub</a>
+        <span aria-hidden="true"> · </span>
+        <span>Served at simpleapp.praveenyzfr.com</span>
+      </footer>
+    </main>
+  </body>
+</html>

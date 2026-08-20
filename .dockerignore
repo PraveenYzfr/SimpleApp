@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+.env
+.idea
+.vscode
+sessions
+data/accounts.json
+data/sessions

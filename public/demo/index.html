@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Users</title>
+    <link rel="stylesheet" href="/demo/styles.css" />
+  </head>
+  <body>
+    <section id="login-view" class="login-view">
+      <div class="login-card">
+        <p><a href="/">← Back to landing page</a></p>
+        <h1>Manage Users</h1>
+        <p>Sign in to continue.</p>
+        <form id="login-form">
+          <label>
+            Email
+            <input type="email" id="login-email" required autocomplete="username" />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              id="login-password"
+              required
+              autocomplete="current-password"
+              minlength="8"
+            />
+          </label>
+          <button type="submit">Sign in</button>
+        </form>
+        <p id="login-message" class="message" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <main id="app-view" class="app hidden">
+      <header class="header">
+        <div class="header-top">
+          <div>
+            <p><a href="/">← Back to landing page</a></p>
+            <h1>Manage Users</h1>
+            <p>Create, edit, and delete users.</p>
+          </div>
+          <div class="session-bar">
+            <span id="session-label"></span>
+            <button type="button" id="logout-btn" class="secondary small">Logout</button>
+          </div>
+        </div>
+      </header>
+
+      <section id="form-section" class="form-section" aria-labelledby="form-title">
+        <h2 id="form-title">Add User</h2>
+        <form id="user-form">
+          <input type="hidden" id="user-id" />
+          <label>
+            Name
+            <input type="text" id="name" name="name" required placeholder="Jane Doe" />
+          </label>
+          <label>
+            Email
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="jane@example.com"
+            />
+          </label>
+          <label>
+            Role
+            <select id="role" name="role">
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+              <option value="editor">Editor</option>
+            </select>
+          </label>
+          <div class="form-actions">
+            <button type="submit" id="submit-btn">Add User</button>
+            <button type="button" id="cancel-btn" class="secondary hidden">Cancel</button>
+          </div>
+        </form>
+        <p id="form-message" class="message" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="list-section" aria-labelledby="list-title">
+        <div class="list-header">
+          <h2 id="list-title">Users</h2>
+          <input
+            type="search"
+            id="search"
+            placeholder="Search by name or email…"
+            aria-label="Search users"
+          />
+        </div>
+        <div id="users-table-wrap">
+          <table id="users-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th id="users-actions-col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="users-body"></tbody>
+          </table>
+          <p id="empty-state" class="empty hidden">No users found.</p>
+          <nav class="pager" id="users-pager" aria-label="Users pagination">
+            <label class="page-size">
+              Rows
+              <select id="users-page-size">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+            </label>
+            <div class="pager-controls">
+              <button type="button" class="small secondary" id="users-prev">Previous</button>
+              <span id="users-page-info" class="page-info"></span>
+              <button type="button" class="small secondary" id="users-next">Next</button>
+            </div>
+          </nav>
+        </div>
+      </section>
+
+      <section id="accounts-section" class="list-section hidden" aria-labelledby="accounts-title">
+        <div class="list-header">
+          <h2 id="accounts-title">Login Accounts</h2>
+        </div>
+        <form id="account-form" class="account-form">
+          <input type="hidden" id="account-id" />
+          <label>
+            Name
+            <input type="text" id="account-name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" id="account-email" required />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              id="account-password"
+              minlength="8"
+              placeholder="Min 8 characters"
+            />
+          </label>
+          <label>
+            Role
+            <select id="account-role">
+              <option value="viewer">Viewer</option>
+              <option value="editor">Editor</option>
+              <option value="admin">Admin</option>
+            </select>
+          </label>
+          <div class="form-actions">
+            <button type="submit" id="account-submit-btn">Add Account</button>
+            <button type="button" id="account-cancel-btn" class="secondary hidden">Cancel</button>
+          </div>
+        </form>
+        <p id="account-message" class="message" role="status" aria-live="polite"></p>
+        <table id="accounts-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="accounts-body"></tbody>
+        </table>
+        <p id="accounts-empty" class="empty hidden">No login accounts found.</p>
+        <nav class="pager" id="accounts-pager" aria-label="Accounts pagination">
+          <label class="page-size">
+            Rows
+            <select id="accounts-page-size">
+              <option value="5" selected>5</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </label>
+          <div class="pager-controls">
+            <button type="button" class="small secondary" id="accounts-prev">Previous</button>
+            <span id="accounts-page-info" class="page-info"></span>
+            <button type="button" class="small secondary" id="accounts-next">Next</button>
+          </div>
+        </nav>
+      </section>
+    </main>
+    <script src="/demo/app.js"></script>
+  </body>
+</html>

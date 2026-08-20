@@ -2,6 +2,11 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
+const {
+  requireAuth,
+  requireEditor,
+  requireCsrf,
+} = require("../middleware/auth");
 
 const router = express.Router();
 const DATA_FILE = path.join(__dirname, "..", "data", "users.json");
@@ -19,7 +24,9 @@ function isValidEmail(email) {
   return typeof email === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// GET /api/users — list all users
+router.use(requireAuth);
+
+// GET /api/users — list all users (any authenticated role)
 router.get("/", (req, res) => {
   const users = readUsers();
   res.json(users);
@@ -35,8 +42,8 @@ router.get("/:id", (req, res) => {
   res.json(user);
 });
 
-// POST /api/users — create user
-router.post("/", (req, res) => {
+// POST /api/users — create user (editor/admin)
+router.post("/", requireEditor, requireCsrf, (req, res) => {
   const { name, email, role } = req.body;
 
   if (!name || !email) {
@@ -63,8 +70,8 @@ router.post("/", (req, res) => {
   res.status(201).json(user);
 });
 
-// PUT /api/users/:id — update user
-router.put("/:id", (req, res) => {
+// PUT /api/users/:id — update user (editor/admin)
+router.put("/:id", requireEditor, requireCsrf, (req, res) => {
   const { name, email, role } = req.body;
   const users = readUsers();
   const index = users.findIndex((u) => u.id === req.params.id);
@@ -97,8 +104,8 @@ router.put("/:id", (req, res) => {
   res.json(users[index]);
 });
 
-// DELETE /api/users/:id — delete user
-router.delete("/:id", (req, res) => {
+// DELETE /api/users/:id — delete user (editor/admin)
+router.delete("/:id", requireEditor, requireCsrf, (req, res) => {
   const users = readUsers();
   const index = users.findIndex((u) => u.id === req.params.id);
 

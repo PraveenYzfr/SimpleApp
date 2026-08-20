@@ -1,17 +1,31 @@
 {
   "name": "simpleapp",
   "version": "1.0.0",
-  "description": "Simple Users CRUD app — target repo for Autocode GenAI tests",
+  "description": "Simple Users CRUD — Cloudflare Workers + D1 (Express fallback kept for local/VM)",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "cf:dev": "wrangler dev",
+    "cf:deploy": "wrangler deploy",
+    "cf:db:create": "wrangler d1 create simpleapp",
+    "cf:db:migrate:local": "wrangler d1 execute simpleapp --local --file=./schema.sql",
+    "cf:db:migrate": "wrangler d1 execute simpleapp --remote --file=./schema.sql"
   },
-  "keywords": ["crud", "users", "autocode"],
+  "keywords": ["crud", "users", "autocode", "cloudflare"],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "express-session": "^1.18.1",
+    "hono": "^4.7.2",
+    "session-file-store": "^1.5.0",
     "uuid": "^11.0.5"
+  },
+  "devDependencies": {
+    "wrangler": "^4.14.0"
   }
 }

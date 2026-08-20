@@ -4,3 +4,8 @@ node_modules/
 .env
 .idea/
 .vscode/
+sessions/
+data/accounts.json
+data/sessions/
+.wrangler/
+.dev.vars
