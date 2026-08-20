@@ -8,13 +8,13 @@ compatibility_flags = ["nodejs_compat"]
 directory = "./public"
 binding = "ASSETS"
 not_found_handling = "none"
-run_worker_first = ["/api/*"]
+# Worker must run first so `/` → landing and `/demo/` → demo HTML rewrites work
+run_worker_first = true
 
 [[d1_databases]]
 binding = "DB"
 database_name = "simpleapp"
-# Replace after: npx wrangler d1 create simpleapp
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "273c6350-2b15-46b4-87e5-7f4fbfa95716"
 
 # Local secrets for `wrangler dev` — production uses `wrangler secret put`
 # SESSION_SECRET, AUTH_ADMIN_EMAIL, AUTH_ADMIN_PASSWORD, AUTH_ADMIN_NAME
