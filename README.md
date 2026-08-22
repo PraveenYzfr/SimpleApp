@@ -1,4 +1,4 @@
-# Simple Users CRUD
+﻿# Simple Users CRUD
 
 Authenticated **Manage Users** demo for AutoCoder GenAI tests, hosted on
 **Cloudflare Workers + D1** (always on). Express + JSON files remain as a local/VM
@@ -31,6 +31,17 @@ fallback.
 | `/api/users` | Users API (auth + roles) |
 | `/api/auth/*` | Login / logout / me |
 | `/api/accounts` | Admin account CRUD |
+
+## Workflow
+
+Safe change flow for this repository:
+
+1. **Jira Ticket is assigned to AutoCoder.**
+2. **Code changes run through build, tests, and secret scan.**
+3. **A new Jira pull request is opened; a human (Praveen) decides whether to merge.**
+
+All changes to this codebase follow this workflow — no change is merged without
+a human review.
 
 ## Cloudflare dashboard (Workers)
 

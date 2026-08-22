@@ -1,0 +1,1 @@
+Added a "Workflow" section to README.md documenting the Safe change flow from SCRUM-7: (1) Jira Ticket assigned to AutoCoder, (2) code changes run through build/tests/secret scan, (3) a new Jira pull request is opened with Praveen as the human reviewer deciding whether to merge. No tests were added since the repo has no test infrastructure.
